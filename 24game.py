@@ -55,8 +55,20 @@ def run4digit(candidates, dict):
 					continue
 				res3 = calc(res2, candidates[3], c)
 				if abs(res3 - 24) < 0.01:
-					print('('+str(int(candidates[0]))+dict[b]+'('+str(int(candidates[1])) \
-					+dict[a]+str(int(candidates[2]))+'))'+dict[c]+str(int(candidates[3])))
+					if (a == 0 or a == 1):
+						if (b == 0 or b == 1) and (c == 2 or c == 3):
+							print('('+str(int(candidates[0]))+dict[b]+'('+str(int(candidates[1])) \
+							+dict[a]+str(int(candidates[2]))+'))'+dict[c]+str(int(candidates[3])))
+						else:
+							print(str(int(candidates[0]))+dict[b]+'('+str(int(candidates[1])) \
+							+dict[a]+str(int(candidates[2]))+')'+dict[c]+str(int(candidates[3])))
+					else:
+						if (b == 0 or b == 1) and (c == 2 or c == 3):
+							print('('+str(int(candidates[0]))+dict[b]+str(int(candidates[1])) \
+							+dict[a]+str(int(candidates[2]))+')'+dict[c]+str(int(candidates[3])))
+						else:
+							print(str(int(candidates[0]))+dict[b]+str(int(candidates[1])) \
+							+dict[a]+str(int(candidates[2]))+dict[c]+str(int(candidates[3])))
 					return True
 	## 0 ((1 2) 3)
 	for a in range(4):
