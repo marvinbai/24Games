@@ -31,8 +31,15 @@ def run4digit(candidates, dict):
 					continue
 				res3 = calc(res2, candidates[3], c)
 				if abs(res3 - 24) < 0.01:
-					print('(('+str(int(candidates[0]))+dict[a]+str(int(candidates[1]))+')' \
-					+dict[b]+str(int(candidates[2]))+')'+dict[c]+str(int(candidates[3])))
+					if (a == 0 or a == 1) and (b == 2 or b == 3):
+						print('('+str(int(candidates[0]))+dict[a]+str(int(candidates[1]))+')' \
+						+dict[b]+str(int(candidates[2]))+dict[c]+str(int(candidates[3])))
+					elif (b == 0 or b == 1) and (c == 2 or c == 3):
+						print('('+str(int(candidates[0]))+dict[a]+str(int(candidates[1])) \
+						+dict[b]+str(int(candidates[2]))+')'+dict[c]+str(int(candidates[3])))
+					else:
+						print(str(int(candidates[0]))+dict[a]+str(int(candidates[1])) \
+						+dict[b]+str(int(candidates[2]))+dict[c]+str(int(candidates[3])))
 					return True
 	## (0 (1 2)) 3
 	for a in range(4):
@@ -48,9 +55,6 @@ def run4digit(candidates, dict):
 					continue
 				res3 = calc(res2, candidates[3], c)
 				if abs(res3 - 24) < 0.01:
-					print(res1)
-					print(res2)
-					print(res3)
 					print('('+str(int(candidates[0]))+dict[b]+'('+str(int(candidates[1])) \
 					+dict[a]+str(int(candidates[2]))+'))'+dict[c]+str(int(candidates[3])))
 					return True
@@ -107,45 +111,46 @@ def run4digit(candidates, dict):
 					return True
 	return False
 
-print("Please input four numbers separated by space...")
-nums = input().split(" ")
-# THere must be exact four numbers from input.
-if len(nums) != 4:
-	print("Input must be FOUR numbers.")
-	sys.exit()
-# Convert from string to float.
-for i in range(len(nums)):
-	nums[i] = float(nums[i])
-# Construct dictionary for operatorsself.
-dict = {0:'+', 1:'-', 2:'*', 3:'/'}
-# Brutal force.
-set = set()
-candidates = [None] * 4 # Four numbers of different combinations.
-for i in range(4):
-	candidates[0] = nums[i]
-	set.add(i)
-	for j in range(4):
-		if j in set:
-			continue
-		candidates[1] = nums[j]
-		set.add(j)
-		for k in range(4):
-			if k in set:
+if __name__ == '__main__':
+	print("Please input four numbers separated by space...")
+	nums = input().split(" ")
+	# THere must be exact four numbers from input.
+	if len(nums) != 4:
+		print("Input must be FOUR numbers.")
+		sys.exit()
+	# Convert from string to float.
+	for i in range(len(nums)):
+		nums[i] = float(nums[i])
+	# Construct dictionary for operatorsself.
+	dict = {0:'+', 1:'-', 2:'*', 3:'/'}
+	# Brutal force.
+	set = set()
+	candidates = [None] * 4 # Four numbers of different combinations.
+	for i in range(4):
+		candidates[0] = nums[i]
+		set.add(i)
+		for j in range(4):
+			if j in set:
 				continue
-			candidates[2] = nums[k]
-			set.add(k)
-			for l in range(4):
-				if l in set:
+			candidates[1] = nums[j]
+			set.add(j)
+			for k in range(4):
+				if k in set:
 					continue
-				candidates[3] = nums[l]
-				set.add(l)
-				if run4digit(candidates, dict) == True:
-					sys.exit()
-				set.remove(l)
-			set.remove(k)
-		set.remove(j)
-	set.remove(i)
-print("Solution not found...")
+				candidates[2] = nums[k]
+				set.add(k)
+				for l in range(4):
+					if l in set:
+						continue
+					candidates[3] = nums[l]
+					set.add(l)
+					if run4digit(candidates, dict) == True:
+						sys.exit()
+					set.remove(l)
+				set.remove(k)
+			set.remove(j)
+		set.remove(i)
+	print("Solution not found...")
 
 	
 	
